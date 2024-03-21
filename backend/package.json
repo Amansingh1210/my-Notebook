@@ -1,0 +1,19 @@
+{
+  "name": "my-notebook",
+  "version": "1.0.0",
+  "description": "mynotebook - my notes on cloud",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Aman",
+    "Singh"
+  ],
+  "author": "Aman singh",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.1",
+    "mongoose": "^8.2.2"
+  }
+}
