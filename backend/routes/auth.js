@@ -12,6 +12,7 @@ router.post('/',[
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
+    // Crrate a user 
     let user =  await User.findOne({email : req.body.email}); 
     if(user){
         return res.status(400).json({ error: "Enter valid email" })
