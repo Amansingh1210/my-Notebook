@@ -3,9 +3,11 @@ const User = require('../modules/User');
 const router = express.Router() ;
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
-var jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
+const fetchuser = require('../middleware/fetchuser')
 
-//  create the User using : POST "/api/auth/createuser" . No ligin requied
+const JWT_SECRET = "password";
+// Route 1 :  create the User using : POST "/api/auth/createuser" . No login requied
 router.post('/createuser',[
     body('name','enter valid name').isLength({ min: 3}),
     body('email','enter valid email').isEmail(),
@@ -36,7 +38,7 @@ try{
             id : user.id
         }
     }   
-    const authToken = jwt.sign(data,'password');
+    const authToken = jwt.sign(data, JWT_SECRET);
     res.json({authToken});
     // .then(user => res.json(user)).
     // catch(error => res.json({
@@ -54,7 +56,7 @@ catch (error) {
 });
 
 
-//  Authenticate a User using : POST "/api/auth/login" .  ligin requied
+// Route 2 :  Authenticate a User using : POST "/api/auth/login" . No login requied
 router.post('/login',[
     body('email', 'enter valid email').isEmail(),
     body('password', 'password is required').exists(),
@@ -79,14 +81,25 @@ router.post('/login',[
                 id: user.id
             }
         }
-        const authToken = jwt.sign(data, 'password');
+        const authToken = jwt.sign(data,JWT_SECRET);
         res.json({ authToken });
     }
     catch (error){
-        console.log(error.message);
-        res.status(500).json("Server Not found")
-    }
-    
+        console.error(error.message);
+        res.status(500).json("Server Not found");
+    }    
 })
 
-module.exports = router;
+// Route 3 :  Fetch logedin User details using : POST "/api/auth/getuser" .  login requied
+    router.post('/fetchuser', fetchuser ,  async (req, res) => {
+        try {
+            userID = req.user.id;
+            const user = await User.findById(userID).select("-password");
+            res.send(user)
+        } catch (error) {
+            console.error(error.message);
+            res.status(500).json("Server Not found");
+        }
+})
+
+module.exports = router
