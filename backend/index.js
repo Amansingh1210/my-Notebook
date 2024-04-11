@@ -8,7 +8,7 @@ const port = 3000
 // Routes 
 app.use(express.json());
 app.use('/api/auth', require('./routes/auth'));
-app.use('/api/note',require('./routes/note'));
+app.use('/api/notes',require('./routes/note'));
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
