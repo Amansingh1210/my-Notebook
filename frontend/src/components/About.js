@@ -1,8 +1,12 @@
 import React from 'react'
+import NoteContext from '../context/notes/Notecontext'
+import { useContext } from 'react'
 
-function About() {
+const  About = () => {
+  const user = useContext(NoteContext);
+  const a = 34
   return (
-    <h1>This is about</h1>
+    <h1>This is about {user.name}</h1>
   )
 }
 
