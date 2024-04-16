@@ -70,9 +70,9 @@ const NoteState =(props)=>{
     const  [notes, setNotes] = useState(initialNotes)
 
     // Add note 
-    const addNote = ()=>{
+    const addNote = (title, description, tag)=>{
         const note = {
-            "_id": "6617b43434ec357ce044839204219",
+            "_id": "6617b43434ec357ce044561839204219",
             "user": "6616324dc9fbda71e27da7af1",
             "title": "Java Tutorial [Added]",
             "description": "Operator and data types [Added] ",
@@ -81,7 +81,7 @@ const NoteState =(props)=>{
             "__v": 0
         }
 
-        setNotes(notes.push(note))
+        setNotes(notes.concat(note))
     }
     // Edit note 
     const editNote = () => {
