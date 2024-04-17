@@ -21,17 +21,12 @@ function AddNote() {
                   <div className="mb-3">
                       <label htmlFor="title" className="form-label">Note Title</label>
                       <input type="text" className="form-control" id="title" name="title" aria-describedby="emailHelp" onChange={onChange}/>
-                      {/* <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div> */}
                   </div>
                   <div className="mb-3">
                       <label htmlFor="description" className="form-label">Description</label>
                       <input type="text" className="form-control" id="description" name="description" onChange={onChange} />
                   </div>
-                  <div className="mb-3 form-check">
-                      <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                      <label className="form-check-label" htmlFor="exampleCheck1">allowed</label>
-                  </div>
-                  <button type="submit" className="btn btn-primary" onClick={handleClick}>Add note</button>
+                  <button disabled={note.description.length<5 || note.title.length<3} type="submit" className="btn btn-primary" onClick={handleClick}>Add note</button>
               </form>
           </div>
     </>
