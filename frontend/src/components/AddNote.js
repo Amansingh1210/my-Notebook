@@ -4,11 +4,11 @@ import contextValue from '../context/notes/Notecontext';
 function AddNote() {
     const context = useContext(contextValue);
     const { addNote } = context;
-    const [note, setnote] = useState({title: "",description:"",tag:""})
+    const [note, setnote] = useState({title: "",description:"",tag:"default"})
 
     const handleClick = (e)=>{
-        e.preventDefault()
-        addNote(note);
+        e.preventDefault();
+        addNote(note.title, note.description,note.tag);
     }
     const onChange = (e)=>{
         setnote({...note, [e.target.name]: e.target.value})
@@ -31,7 +31,7 @@ function AddNote() {
                       <input type="checkbox" className="form-check-input" id="exampleCheck1" />
                       <label className="form-check-label" htmlFor="exampleCheck1">allowed</label>
                   </div>
-                  <button type="submit" className="btn btn-primary" onClick={handleClick}>Submit</button>
+                  <button type="submit" className="btn btn-primary" onClick={handleClick}>Add note</button>
               </form>
           </div>
     </>
