@@ -9,6 +9,7 @@ function AddNote() {
     const handleClick = (e)=>{
         e.preventDefault();
         addNote(note.title, note.description,note.tag);
+        setnote({ title: "", description: "", tag: "" })
     }
     const onChange = (e)=>{
         setnote({...note, [e.target.name]: e.target.value})
@@ -20,11 +21,11 @@ function AddNote() {
               <form>
                   <div className="mb-3">
                       <label htmlFor="title" className="form-label">Note Title</label>
-                      <input type="text" className="form-control" id="title" name="title" aria-describedby="emailHelp" onChange={onChange}/>
+                      <input type="text" className="form-control" id="title" name="title" aria-describedby="emailHelp" value={note.title} onChange={onChange} />
                   </div>
                   <div className="mb-3">
                       <label htmlFor="description" className="form-label">Description</label>
-                      <input type="text" className="form-control" id="description" name="description" onChange={onChange} />
+                      <input type="text" className="form-control" id="description" name="description" value={note.description} onChange={onChange} />
                   </div>
                   <button disabled={note.description.length<5 || note.title.length<3} type="submit" className="btn btn-primary" onClick={handleClick}>Add note</button>
               </form>
