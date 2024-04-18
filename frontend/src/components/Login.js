@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 function Login() {
     const [credentials, setCredentials] = useState({email: "", password: ""})
+    // const [items, setItems] = useState([]);
     let navigate = useNavigate();
 
     const handleSubmit = async (e)=>{
@@ -16,7 +17,8 @@ function Login() {
             });
             const json = await response.json();
             console.log(json);
-            if(json.success){
+        if (json.success) {
+            localStorage.setItem('token', JSON.stringify(json.authToken));
                 navigate("/");
             }
     }

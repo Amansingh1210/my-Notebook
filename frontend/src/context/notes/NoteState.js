@@ -5,18 +5,19 @@ const NoteState =(props)=>{
     const host = "http://localhost:3000"
     let initialNotes = []
     const  [notes, setNotes] = useState(initialNotes)
-
+    const token = JSON.parse(localStorage.getItem('token'));
     // Fetch note 
     const fetchNotes = async ()=>{
         const response = await fetch(`${host}/api/notes/fetchallnotes`,{
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjYxNjMyZGM5ZmJkYTcxZTI3ZGE3YWYxIn0sImlhdCI6MTcxMjczMDg0NH0.rhDC44hh9PAOtHcVJYFRLGoXKPvowiihkSKNwvPtcnQ",
+                "auth-token": `${token}`,
             }
         });
         const json = await response.json(); 
         setNotes(json);
+        // console.log(json);
     }
     // Add note 
     const addNote = async (title, description, tag)=>{
@@ -24,7 +25,7 @@ const NoteState =(props)=>{
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjYxNjMyZGM5ZmJkYTcxZTI3ZGE3YWYxIn0sImlhdCI6MTcxMjczMDg0NH0.rhDC44hh9PAOtHcVJYFRLGoXKPvowiihkSKNwvPtcnQ",
+                "auth-token": `${token}`,
             },
             body: JSON.stringify({title,description,tag})
         });
@@ -37,7 +38,7 @@ const NoteState =(props)=>{
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjYxNjMyZGM5ZmJkYTcxZTI3ZGE3YWYxIn0sImlhdCI6MTcxMjczMDg0NH0.rhDC44hh9PAOtHcVJYFRLGoXKPvowiihkSKNwvPtcnQ",
+                "auth-token": `${token}`,
             },
             body: JSON.stringify({ title, description, tag })
         });
@@ -64,7 +65,7 @@ const NoteState =(props)=>{
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
-                "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjYxNjMyZGM5ZmJkYTcxZTI3ZGE3YWYxIn0sImlhdCI6MTcxMjczMDg0NH0.rhDC44hh9PAOtHcVJYFRLGoXKPvowiihkSKNwvPtcnQ",
+                "auth-token": `${token}`,
             }
         });
         const json = await response.json();
