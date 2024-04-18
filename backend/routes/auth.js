@@ -13,15 +13,16 @@ router.post('/createuser',[
     body('email','enter valid email').isEmail(),
     body('password','password should contains min 4 characters').isLength({ min: 4}),
 ], async (req, res) => {
+    let success = false;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        return res.status(400).json({ success , errors: errors.array() });
     }
     // Check wheather the user is already exist with same email
 try{
     let user =  await User.findOne({email : req.body.email}); 
     if(user){
-        return res.status(400).json({ error: "Enter valid email" })
+        return res.status(400).json({ success, error: "Enter valid email" })
     }
 
 
@@ -38,16 +39,9 @@ try{
             id : user.id
         }
     }   
+    success = true
     const authToken = jwt.sign(data, JWT_SECRET);
-    res.json({authToken});
-    // .then(user => res.json(user)).
-    // catch(error => res.json({
-    //     error : `Enter valid name or email`,
-    //     message : error.message 
-    // }))
-    // res.send({ errors: result.array() });
-    // user.save();
-    // res.send(req.body)
+    res.json({ success , authToken});
 }
 catch (error) {
         console.log(error.message);
