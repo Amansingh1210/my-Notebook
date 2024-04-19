@@ -1,28 +1,40 @@
 import React, { useContext, useEffect , useRef, useState} from 'react'
 import contextValue from '../context/notes/Notecontext';
 import NoteItem from './NoteItem'
+import alertValue from'../context/Alerts/Alertcontext'
+import { useNavigate } from 'react-router-dom';
 
 function Notes() {
+  const navigate = useNavigate();
   const context = useContext(contextValue);
   const { notes, fetchNotes, editNote } = context;
   const ref = useRef(null);
   const refClose = useRef(null);
+  const getalerts = useContext(alertValue);
+  const { showalert } = getalerts;
   const [note, setnote] = useState({ id: "" , etitle: "", edescription: "", etag: "default" })
 
   const handleClick = (e) => {
     editNote(note.id, note.etitle, note.edescription);
     refClose.current.click();
+    showalert("Note edited Successfully", "success")
   }
   const onChange = (e) => {
     setnote({ ...note, [e.target.name]: e.target.value })
   }
 
   useEffect(() => {
-    fetchNotes();
+    if(localStorage.getItem('token')){
+      fetchNotes();
+    }
+    else{
+      navigate('/SignUp')
+    }
   })
   const updateNote = (currentNote) => {
     ref.current.click();
     setnote({ id: currentNote._id, etitle: currentNote.title, edescription: currentNote.description })
+
   }
 
   return (

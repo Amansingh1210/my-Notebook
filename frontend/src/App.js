@@ -9,13 +9,17 @@ import {
 import NoteState from "./context/notes/NoteState";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
+import Alert from "./components/Alert";
+import SetAlerts from "./context/Alerts/SetAlerts";
 
 function App() {
   return (
     <>
     <NoteState>
+      <SetAlerts>
       <BrowserRouter>
           <Navbar/>
+          <Alert alert={alert}/>
         <Routes>
           <Route exact path="/" element={<Home/>}></Route>
           <Route exact path="/home" element={<Home/>}></Route>
@@ -24,6 +28,7 @@ function App() {
           <Route exact path="/signup" element={<Signup/>}></Route>
         </Routes>
       </BrowserRouter >
+        </SetAlerts>
     </NoteState>
 
     </>

@@ -1,12 +1,20 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate } from "react-router-dom";
+import alertValue from '../context/Alerts/Alertcontext'
+
 
 function Signup() {
     const [credentials, setCredentials] = useState({ name:"", email: "", password: "" , cpassword: ""})
     let navigate = useNavigate();
-    const {name, email, password} = credentials;
+    const getalerts = useContext(alertValue)
+    const {showalert} = getalerts
+    const {name, email, password, cpassword} = credentials;
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (password !== cpassword) {
+            showalert("Password Not match","danger")
+            return
+        }
         const response = await fetch(`http://localhost:3000/api/auth/createuser`, {
             method: "POST",
             headers: {

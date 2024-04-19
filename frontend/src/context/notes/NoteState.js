@@ -1,5 +1,7 @@
+
 import NoteContext from "./Notecontext";
 import { useState } from "react";
+
 
 const NoteState =(props)=>{
     const host = "http://localhost:3000"
@@ -8,6 +10,9 @@ const NoteState =(props)=>{
     const token = JSON.parse(localStorage.getItem('token'));
     // Fetch note 
     const fetchNotes = async ()=>{
+        if(!token){
+            return
+        }
         const response = await fetch(`${host}/api/notes/fetchallnotes`,{
             method: "GET",
             headers: {
