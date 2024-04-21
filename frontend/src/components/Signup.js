@@ -27,10 +27,10 @@ function Signup() {
         if (json.success) {
             localStorage.setItem('token',json.authToken)
             navigate("/login");
+            showalert('Create account successfully','success');
         }
     }
     const onChange = (e) => {
-        
         setCredentials({ ...credentials, [e.target.name]: e.target.value })
     }
 

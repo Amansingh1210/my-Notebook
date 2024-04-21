@@ -5,7 +5,7 @@ function Alert() {
     const getalerts = useContext(alertValue)
     const { alert } = getalerts;
     return (
-        alert && <div className={`alert alert-${alert.type} alert-dismissible fade show`} role="alert">
+        alert && <div className={`alert alert-${alert.type} alert-dismissible fade show mb-3`} role="alert">
             <strong>{alert.type}: </strong>{alert.message}
         </div>
 

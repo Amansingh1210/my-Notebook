@@ -20,6 +20,7 @@ function App() {
       <BrowserRouter>
           <Navbar/>
           <Alert alert={alert}/>
+          <div className="container my-5">
         <Routes>
           <Route exact path="/" element={<Home/>}></Route>
           <Route exact path="/home" element={<Home/>}></Route>
@@ -27,6 +28,7 @@ function App() {
           <Route exact path="/login" element={<Login/>}></Route>
           <Route exact path="/signup" element={<Signup/>}></Route>
         </Routes>
+          </div>
       </BrowserRouter >
         </SetAlerts>
     </NoteState>

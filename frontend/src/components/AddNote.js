@@ -21,7 +21,7 @@ function AddNote() {
     }
   return (
     <>
-          <div className='container my-3'>
+          <div className='container '>
               <h2>Enter the Note</h2>
               <form>
                   <div className="mb-3">

@@ -1,11 +1,13 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import { useNavigate } from "react-router-dom";
+import alertValue from '../context/Alerts/Alertcontext'
 
 function Login() {
     const [credentials, setCredentials] = useState({email: "", password: ""})
     // const [items, setItems] = useState([]);
     let navigate = useNavigate();
-
+  const getalerts = useContext(alertValue)
+  const { showalert } = getalerts
     const handleSubmit = async (e)=>{
         e.preventDefault();
         const response = await fetch(`http://localhost:3000/api/auth/login`, {
@@ -20,6 +22,7 @@ function Login() {
         if (json.success) {
             localStorage.setItem('token', JSON.stringify(json.authToken));
                 navigate("/");
+               showalert('Logged in successfully', 'success');
             }
     }
     const onChange = (e) => {
